@@ -1,4 +1,4 @@
-// generated automatically from /Users/kevin/work/branigan.ca/prototypes/csv_to_chb/examples/routes.csv
+// generated automatically from /Users/kevin/work/csv_to_chb/examples/routes.csv
 
 #include "routes.h"
 
@@ -9,7 +9,7 @@
 struct s_routes * load_routes(int * ret_count)
 {
   char file_name[500];
-  snprintf(file_name, sizeof(file_name), "/Users/kevin/work/branigan.ca/prototypes/csv_to_chb/examples/routes.b");
+  snprintf(file_name, sizeof(file_name), "/Users/kevin/work/csv_to_chb/examples/routes.b");
   printf("loading data from '%s'\n", file_name);
   FILE * fp = fopen(file_name, "rb");
   if (fp == NULL) { fprintf(stderr, "find could not be opened, perhaps you gave it a different relative path?\n"); return NULL; }

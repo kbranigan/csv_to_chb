@@ -1,4 +1,4 @@
-// generated automatically from /Users/kevin/work/branigan.ca/prototypes/csv_to_chb/examples/routes.csv
+// generated automatically from /Users/kevin/work/csv_to_chb/examples/routes.csv
 
 #ifndef GENERATED_AUTOMATICALLY_FROM_routes_CSV
 #define GENERATED_AUTOMATICALLY_FROM_routes_CSV
@@ -13,9 +13,16 @@ struct s_routes {
   char  route_text_color[8];
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern struct s_routes * load_routes(int * ret_count);
 
 extern int num_routes;
 extern struct s_routes routes[20];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // GENERATED_AUTOMATICALLY_FROM_routes_CSV

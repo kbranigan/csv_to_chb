@@ -193,6 +193,9 @@ int csv_to_cbh(std::string folder, std::string base_name)
   fwrite(&row_width, sizeof(row_width), 1, fp_b);
   fwrite(&num_rows, sizeof(num_rows), 1, fp_b);
 
+  fprintf(fp_h, "#ifdef __cplusplus\n");
+  fprintf(fp_h, "extern \"C\" {\n");
+  fprintf(fp_h, "#endif\n");
   fprintf(fp_h, "extern struct s_%s * load_%s(int * ret_count);\n", base_name.c_str(), base_name.c_str());
   fprintf(fp_h, "\n");
   #ifdef COMPILE_IN_DATA
@@ -200,6 +203,9 @@ int csv_to_cbh(std::string folder, std::string base_name)
   fprintf(fp_h, "extern struct s_%s %s[%d];\n", base_name.c_str(), data_name.c_str(), num_rows);
   fprintf(fp_h, "\n");
   #endif // COMPILE_IN_DATA
+  fprintf(fp_h, "#ifdef __cplusplus\n");
+  fprintf(fp_h, "}\n");
+  fprintf(fp_h, "#endif\n\n");
   fprintf(fp_h, "#endif // GENERATED_AUTOMATICALLY_FROM_%s_CSV\n", base_name.c_str());
 
   fprintf(fp_c, "#include <stdio.h>\n");
