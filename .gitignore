@@ -3,3 +3,8 @@ csv_to_cbh
 csv_to_cbh_with_data_embedded
 *.csv
 examples/test_routes
+examples/test_routes_embedded
+examples/routes.o
+examples/routes.h
+examples/routes.c
+examples/routes.b

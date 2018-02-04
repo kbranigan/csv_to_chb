@@ -15,4 +15,7 @@ struct s_routes {
 
 extern struct s_routes * load_routes(int * ret_count);
 
+extern int num_routes;
+extern struct s_routes routes[20];
+
 #endif // GENERATED_AUTOMATICALLY_FROM_routes_CSV
