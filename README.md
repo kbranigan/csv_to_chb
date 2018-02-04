@@ -39,7 +39,7 @@ route_id,agency_id,route_short_name,route_long_name
 <b>After you run:</b>
 
 ```
-./csv_to_chb . routes
+./csv_to_chb `pwd`/examples routes.csv
 ```
 
 You get the following files:
@@ -85,7 +85,7 @@ You can compile routes.h using the command:
 cc examples/routes.c -c -o examples/routes.o
 ```
 
-then to use it in your code:
+then to use it in your code (as demoed in examples/test_routes.c):
 
 ```
 #include "routes.h"
