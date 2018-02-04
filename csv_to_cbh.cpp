@@ -63,7 +63,11 @@ void scan_past_any_possible_byte_order_marks(FILE * fp)
 int csv_to_cbh(std::string folder, std::string base_name)
 {
   if (folder[folder.size()-1] != '/') folder += '/';
-  printf("____________\n%s%s.csv\n", folder.c_str(), base_name.c_str());
+  printf("____________\n%s%s\n", folder.c_str(), base_name.c_str());
+
+  int l = base_name.size();
+  if (l > 5 && base_name[l-4] == '.' && base_name[l-3] == 'c' && base_name[l-2] == 's' && base_name[l-1] == 'v')
+    base_name.resize(l-4);
 
   char temp[500];
   sprintf(temp, "%s%s.csv", folder.c_str(), base_name.c_str());
@@ -298,7 +302,7 @@ int main(int argc, char ** argv)
   }
   else
   {
-    printf("Usage Example: %s . routes   ; [dir name] [base file name]\n", argv[0]);
+    printf("Usage Example: %s examples routes.csv        ; [dir name] [base file name]\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 }

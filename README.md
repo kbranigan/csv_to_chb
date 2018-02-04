@@ -75,5 +75,20 @@ struct s_routes routes[20] = {
 You can compile routes.h using the command:
 
 ```
-cc routes.c -c -o routes.o
+cc examples/routes.c -c -o examples/routes.o
+```
+
+then to use it in your code:
+
+```
+#include "routes.h"
+int num_routes = 0;
+struct s_routes * routes = NULL;
+routes = load_routes(&num_routes);
+```
+
+or with data embedded:  (can be slow for linking)
+
+```
+cc -DCOMPILE_IN_DATA examples/routes.c -c -o examples/routes.o
 ```
