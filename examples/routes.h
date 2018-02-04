@@ -1,4 +1,4 @@
-// generated automatically from ./routes.csv
+// generated automatically from /Users/kevin/work/branigan.ca/prototypes/csv_to_chb/examples/routes.csv
 
 #ifndef GENERATED_AUTOMATICALLY_FROM_routes_CSV
 #define GENERATED_AUTOMATICALLY_FROM_routes_CSV
@@ -14,10 +14,5 @@ struct s_routes {
 };
 
 extern struct s_routes * load_routes(int * ret_count);
-
-#ifdef COMPILE_IN_DATA
-extern int num_routes;
-extern struct s_routes routes[20];
-#endif // COMPILE_IN_DATA
 
 #endif // GENERATED_AUTOMATICALLY_FROM_routes_CSV

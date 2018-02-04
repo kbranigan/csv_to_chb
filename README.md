@@ -16,6 +16,13 @@ It's extremely dumb (which means extremely fast), it can not handle quotes, line
 
 If you want any of _those_ features, take a look at: https://github.com/kbranigan/kcsv
 
+Copy/Paste command to compile and test code and examples: (compiles generated examples/routes.c and sample code that reads routes.b)
+```
+make test
+or
+make test_embedded
+```
+
 Example:
 
 <b>routes.csv</b>

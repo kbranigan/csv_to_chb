@@ -65,6 +65,8 @@ int csv_to_cbh(std::string folder, std::string base_name)
   if (folder[folder.size()-1] != '/') folder += '/';
   printf("____________\n%s%s\n", folder.c_str(), base_name.c_str());
 
+  if (base_name[0] != '/') printf("WARNING: absolute path recommended.\n");
+
   int l = base_name.size();
   if (l > 5 && base_name[l-4] == '.' && base_name[l-3] == 'c' && base_name[l-2] == 's' && base_name[l-1] == 'v')
     base_name.resize(l-4);
@@ -194,10 +196,8 @@ int csv_to_cbh(std::string folder, std::string base_name)
   fprintf(fp_h, "extern struct s_%s * load_%s(int * ret_count);\n", base_name.c_str(), base_name.c_str());
   fprintf(fp_h, "\n");
   #ifdef COMPILE_IN_DATA
-  fprintf(fp_h, "#ifdef COMPILE_IN_DATA\n");
   fprintf(fp_h, "extern int num_%s;\n", base_name.c_str());
   fprintf(fp_h, "extern struct s_%s %s[%d];\n", base_name.c_str(), data_name.c_str(), num_rows);
-  fprintf(fp_h, "#endif // COMPILE_IN_DATA\n");
   fprintf(fp_h, "\n");
   #endif // COMPILE_IN_DATA
   fprintf(fp_h, "#endif // GENERATED_AUTOMATICALLY_FROM_%s_CSV\n", base_name.c_str());
@@ -210,7 +210,9 @@ int csv_to_cbh(std::string folder, std::string base_name)
   fprintf(fp_c, "{\n");
   fprintf(fp_c, "  char file_name[500];\n");
   fprintf(fp_c, "  snprintf(file_name, sizeof(file_name), \"%s%s.b\");\n", folder.c_str(), base_name.c_str());
+  fprintf(fp_c, "  printf(\"loading data from '%%s'\\n\", file_name);\n");
   fprintf(fp_c, "  FILE * fp = fopen(file_name, \"rb\");\n");
+  fprintf(fp_c, "  if (fp == NULL) { fprintf(stderr, \"find could not be opened, perhaps you gave it a different relative path?\\n\"); return NULL; }\n");
   fprintf(fp_c, "  int32_t row_width = 0, num_rows = 0;\n");
   fprintf(fp_c, "  fread(&row_width, sizeof(row_width), 1, fp);\n");
   fprintf(fp_c, "  fread(&num_rows, sizeof(num_rows), 1, fp);\n");
@@ -225,7 +227,6 @@ int csv_to_cbh(std::string folder, std::string base_name)
   fprintf(fp_c, "}\n");
   fprintf(fp_c, "\n");
   #ifdef COMPILE_IN_DATA
-  fprintf(fp_c, "#ifdef COMPILE_IN_DATA\n");
   fprintf(fp_c, "int num_%s = %d;\n", base_name.c_str(), num_rows);
   fprintf(fp_c, "struct s_%s %s[%d] = {", base_name.c_str(), data_name.c_str(), num_rows);
   #endif // COMPILE_IN_DATA
@@ -278,7 +279,6 @@ int csv_to_cbh(std::string folder, std::string base_name)
   }
   #ifdef COMPILE_IN_DATA
   fprintf(fp_c, "\n};\n");
-  fprintf(fp_c, "#endif // COMPILE_IN_DATA\n");
   #endif // COMPILE_IN_DATA
 
   fclose(fp_in);
@@ -289,7 +289,7 @@ int csv_to_cbh(std::string folder, std::string base_name)
   printf("%s%s.csv: %d fields, %d rows\n", folder.c_str(), base_name.c_str(), num_fields, num_rows);
   printf("------------\n");
   printf("run this to test:\n");
-  printf("cc -c -O3 -DCOMPILE_IN_DATA %s%s.c -o %s%s.o\n", folder.c_str(), base_name.c_str(), folder.c_str(), base_name.c_str());
+  printf("cc -c -O3 %s%s.c -o %s%s.o\n", folder.c_str(), base_name.c_str(), folder.c_str(), base_name.c_str());
 
   return num_rows;
 }
